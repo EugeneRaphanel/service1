@@ -5,14 +5,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import java.net.InetAddress;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Email;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
+
+@ConfigurationProperties
 @Entity // This tells Hibernate to make a table out of this class
+@Validated
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	
 	private Integer id;
-
+	
+	@NotEmpty(message = "Name may not be empty") 
 	private String name;
-
+	
+	@NotEmpty(message = "Email may not be empty") 
+	@Email(message = "Email should be valid")
 	private String email;
 
 	public Integer getId() {
