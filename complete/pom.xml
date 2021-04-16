@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>accessing-data-mysql</artifactId>
+	<artifactId>service1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>accessing-data-mysql</name>
-	<description>Demo project for Spring Boot</description>
+	<name>service1</name>
+	<description>project Pizza : subscription handling</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
