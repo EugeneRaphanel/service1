@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Optional;
 import java.util.HashMap;
 import java.util.Map;
-
-
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 @Controller	// This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
@@ -42,9 +43,13 @@ public class MainController {
 	}*/
 
 	@GetMapping(path="/users")
-	public @ResponseBody Iterable<User> getAllUsers() {
+	public @ResponseBody List<User> getAllUsers() {
 		// This returns a JSON or XML with the users
-		return userRepository.findAll();
+		Iterable<User> iterable = userRepository.findAll();
+		Iterator<User> iterator = iterable.iterator();
+		List<User> result = new ArrayList<User>();
+    		iterable.forEach(result::add);
+    		return result;
 	}
 	
 	  @GetMapping("/users/id/{id}")
