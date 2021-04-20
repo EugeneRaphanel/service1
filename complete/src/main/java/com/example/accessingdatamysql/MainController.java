@@ -19,6 +19,8 @@ import java.util.Optional;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 @Controller	// This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
 public class MainController {
@@ -66,14 +68,21 @@ public class MainController {
 }*/
  	
  	@DeleteMapping("/users/id/{id}")
- 	public Optional<User> deleteUserById(@PathVariable Integer id){
+ 	public @ResponseBody Map<String, Boolean> deleteUserById(@PathVariable Integer id){
+ 		Map<String, Boolean> response = new HashMap<>();
+ 		response.put("deleted", Boolean.TRUE);
+ 		try{
  		userRepository.deleteById(id);
- 		return userRepository.findById(id);
+ 		}
+ 		catch( Exception ResourceNotFoundException){
+ 		response.put("deleted", Boolean.FALSE);
+ 		}
+ 		return response;
  	}
  	
  	
  	@PostMapping(path = "/users")
-	public  User addNewUser(@RequestParam String name
+	public @ResponseBody User addNewUser(@RequestParam String name
 			, @RequestParam String email){
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -85,12 +94,12 @@ public class MainController {
 	
 	}
 	@PostMapping("/users/full")
-	public User createUser(@RequestBody User u) {
+	public @ResponseBody User createUser(@RequestBody User u) {
  	return userRepository.save(u);
 }
 	
 	@PutMapping(path = "/users/id/{id}")
-	public User editUserById(@PathVariable Integer id, @RequestParam String name, @RequestParam String email){
+	public @ResponseBody User editUserById(@PathVariable Integer id, @RequestParam String name, @RequestParam String email){
 		User n = userRepository.findById(id).get();
 		n.setName(name);
 		n.setEmail(email);
