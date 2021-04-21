@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties
 @Entity // This tells Hibernate to make a table out of this class
 @Validated
-public class User {
+public class Pizza {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	
@@ -25,10 +25,9 @@ public class User {
 	@NotEmpty(message = "Name may not be empty") 
 	private String name;
 	
-	@NotEmpty(message = "Email may not be empty") 
-	@Email(message = "Email should be valid")
-	private String email;
-
+	
+	private double price;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -45,11 +44,13 @@ public class User {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public double getPrice() {
+		return price;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPrice(double price) {
+		this.price = price;
 	}
+	
+	
 }
