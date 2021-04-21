@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 
-//import org.springframework.ui.Model;
+import org.springframework.ui.Model;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -139,9 +139,5 @@ public class MainController {
 		model.addAttribute("user", new User());
 		return "user";
 	}
-	
-	@GetMapping("/")
-	public String getIndex(Model model) {
-		return "index";
-	}*/
+	*/
 }
