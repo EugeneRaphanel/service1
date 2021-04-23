@@ -43,13 +43,9 @@ public class MainController {
 	}*/
 
 	@GetMapping(path="/users")
-	public @ResponseBody List<User> getAllUsers() {
-		// This returns a JSON or XML with the users
+	public @ResponseBody List<DTOuser> getAllUsers() {
 		Iterable<User> iterable = userRepository.findAll();
-		Iterator<User> iterator = iterable.iterator();
-		List<User> result = new ArrayList<User>();
-    		iterable.forEach(result::add);
-    		return result;
+		return User.returnAllusers(iterable);
 	}
 	
 	  @GetMapping("/users/id/{id}")

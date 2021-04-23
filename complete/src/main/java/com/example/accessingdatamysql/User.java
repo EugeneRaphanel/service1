@@ -13,6 +13,12 @@ import javax.validation.constraints.Email;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 @ConfigurationProperties
 @Entity // This tells Hibernate to make a table out of this class
 @Validated
@@ -52,4 +58,29 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public DTOuser daoToDto() {
+		DTOuser u = new DTOuser();
+    		u.setId(id);
+    		u.setName(name);
+    		u.setEmail(email);
+    		return u;
+	}
+	
+	/*public Iterable<User> findAllUsers(){
+		return userRepository.findAll();
+	}*/
+	public static List<DTOuser> returnAllusers(Iterable<User> iterable){
+		Iterator<User> it = iterable.iterator();
+		List<DTOuser> result = new ArrayList<DTOuser>();
+		DTOuser u ;
+    		while(it.hasNext()){
+    			u = it.next().daoToDto();
+    			result.add(u);
+    		}
+    		return result;
+	}
+	
+	
+	
 }

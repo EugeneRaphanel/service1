@@ -1,6 +1,6 @@
 package com.example.accessingdatamysql;
 
-public class DTOUser {
+public class DTOuser {
 	
 	private Integer id;
 	private String name;
