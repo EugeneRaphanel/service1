@@ -49,19 +49,10 @@ public class MainController {
  
   }
   	
- 	/*
+ 	
  	@DeleteMapping("/users/id/{id}")
  	public @ResponseBody DTOanswer deleteUserById(@PathVariable Integer id){
- 		DTOanswer response = new DTOanswer();
- 		try{
- 		userRepository.deleteById(id);
- 		}
- 		catch( Exception ResourceNotFoundException){
- 			response.setSucess(false);
- 			return response;
- 		}
- 		response.setSucess(true);
- 		return response;
+ 		return userservice.deleteUserById(id);
  	}
  	
  	
@@ -73,31 +64,14 @@ public class MainController {
 		DTOuser n = new DTOuser();
 		n.setName(name);
 		n.setEmail(email);
-		DTOanswer response = new DTOanswer();
-		try {
-			userRepository.save(n.dtoToDao());
-		}
-		catch (Exception IllegalArgumentException){
-			response.setSucess(false);
- 			return response;
-		}
-		response.setSucess(true);
- 		return response;
+		return userservice.saveUser(n); 
 	}
 	@PostMapping("/users/object")
 	public @ResponseBody DTOanswer createUser(@RequestBody DTOuser u) {
- 		DTOanswer response = new DTOanswer();
-		try {
-			userRepository.save(u.dtoToDao());
-		}
-		catch (Exception IllegalArgumentException){
-			response.setSucess(false);
- 			return response;
-		}
-		response.setSucess(true);
- 		return response;
-}
-	
+		return userservice.saveUser(u); 		
+ 		
+	}
+	/*
 	@PutMapping(path = "/users/id/{id}")
 	public @ResponseBody User editUserById(@PathVariable Integer id, @RequestParam String name, @RequestParam String email){
 		User n = userRepository.findById(id).get();

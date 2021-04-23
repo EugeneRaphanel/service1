@@ -33,5 +33,32 @@ public class UserService {
     		}
     		return result;
 	}
+	
+	public DTOanswer deleteUserById(Integer id) {
+		DTOanswer response = new DTOanswer();
+ 		try{
+ 		userRepository.deleteById(id);
+ 		}
+ 		catch( Exception ResourceNotFoundException){
+ 			response.setSucess(false);
+ 			return response;
+ 		}
+ 		response.setSucess(true);
+ 		return response;
+	
+	}
+	
+	public DTOanswer saveUser(DTOuser u){
+		DTOanswer response = new DTOanswer();
+		try {
+			userRepository.save(u.dtoToDao());
+		}
+		catch (Exception IllegalArgumentException){
+			response.setSucess(false);
+ 			return response;
+		}
+		response.setSucess(true);
+ 		return response;
+	}
    
 }
