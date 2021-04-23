@@ -49,8 +49,10 @@ public class MainController {
 	}
 	
 	  @GetMapping("/users/id/{id}")
-  	public   @ResponseBody Optional<User> getOneUser(@PathVariable Integer id) {
-    		return userRepository.findById(id);
+  	public   @ResponseBody DTOuser getOneUser(@PathVariable Integer id) {
+    		Optional<User> u =  userRepository.findById(id);
+    		return u.get().daoToDto(); // Exception not handle
+    
   }
   
   	@GetMapping("/users/name/{name}")
