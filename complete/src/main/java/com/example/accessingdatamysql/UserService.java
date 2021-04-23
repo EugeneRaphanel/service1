@@ -13,17 +13,19 @@ public class UserService {
   private UserRepository userRepository;
   
   
-	public Iterable<User> findAllUsers(){
+	private Iterable<User> findAllUsers(){
 		return userRepository.findAll();
+		
 	}
-	public Optional<User> findById(Integer id){
-		return userRepository.findById(id);
+	public DTOuser findById(Integer id){
+		Optional<User> u =  userRepository.findById(id);
+    	return u.get().daoToDto(); // Exception not handle
 	}
-	public List<User> findByNameIgnoreCase(String name){
+	private List<User> findByNameIgnoreCase(String name){
 		return userRepository.findByNameIgnoreCase(name);
 	}
 	
-	public List<DTOuser> returnAllusers(Iterable<User> iterable){
+	private List<DTOuser> iterabletoDTOuser(Iterable<User> iterable) {
 		Iterator<User> it = iterable.iterator();
 		List<DTOuser> result = new ArrayList<DTOuser>();
 		DTOuser u ;
@@ -32,6 +34,17 @@ public class UserService {
     			result.add(u);
     		}
     		return result;
+	}
+	
+	public List<DTOuser> returnAllusers(){
+		Iterable<User> iterable = this.findAllUsers();
+		return iterabletoDTOuser(iterable);
+		}
+		
+	public List<DTOuser> returnUserByName(String name){
+		Iterable<User> iterable = this.findByNameIgnoreCase(name);
+		return iterabletoDTOuser(iterable);
+	
 	}
 	
 	public DTOanswer deleteUserById(Integer id) {

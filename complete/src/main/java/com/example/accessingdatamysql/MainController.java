@@ -31,21 +31,18 @@ public class MainController {
 
 	@GetMapping(path="/users")
 	public @ResponseBody List<DTOuser> getAllUsers() {
-		Iterable<User> iterable = userservice.findAllUsers();
-		return userservice.returnAllusers(iterable);
+		return userservice.returnAllusers();
 	}
 	
 	
 	  @GetMapping("/users/id/{id}")
   	public   @ResponseBody DTOuser getOneUser(@PathVariable Integer id) {
-    		Optional<User> u =  userservice.findById(id);
-    		return u.get().daoToDto(); // Exception not handle
-    
+    		return  userservice.findById(id);    
   }
   	
   	@GetMapping("/users/name/{name}")
   	public   @ResponseBody List<DTOuser> getOneUser(@PathVariable String name) {
-  		return userservice.returnAllusers(userservice.findByNameIgnoreCase(name));
+  		return userservice.returnUserByName(name);
  
   }
   	
@@ -57,10 +54,7 @@ public class MainController {
  	
  	
  	@PostMapping(path = "/users")
-	public @ResponseBody DTOanswer addNewUser(@RequestParam String name
-			, @RequestParam String email){
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request
+	public @ResponseBody DTOanswer addNewUser(@RequestParam String name, @RequestParam String email){
 		DTOuser n = new DTOuser();
 		n.setName(name);
 		n.setEmail(email);
@@ -71,22 +65,22 @@ public class MainController {
 		return userservice.saveUser(u); 		
  		
 	}
-	/*
+	
 	@PutMapping(path = "/users/id/{id}")
-	public @ResponseBody User editUserById(@PathVariable Integer id, @RequestParam String name, @RequestParam String email){
-		User n = userRepository.findById(id).get();
+	public @ResponseBody DTOanswer editUserById(@PathVariable Integer id, @RequestParam String name, @RequestParam String email){
+		DTOuser n = userservice.findById(id);
 		n.setName(name);
 		n.setEmail(email);
-		return userRepository.save(n);
+		return userservice.saveUser(n); 
 	}
 	
 	
 	@PutMapping(path = "/users/object/id/{id}")
-	public @ResponseBody User editUserById(@PathVariable Integer id, @RequestBody User u){
-		User n = userRepository.findById(id).get();
+	public @ResponseBody DTOanswer editUserById(@PathVariable Integer id, @RequestBody DTOuser u){
+		DTOuser n = userservice.findById(id);
 		n.setName(u.getName());
 		n.setEmail(u.getEmail());
-		return userRepository.save(n);
+		return userservice.saveUser(n); 
 	}
-	*/
+	
 }
