@@ -72,15 +72,16 @@ public class MainController {
 }*/
  	
  	@DeleteMapping("/users/id/{id}")
- 	public @ResponseBody Map<String, Boolean> deleteUserById(@PathVariable Integer id){
- 		Map<String, Boolean> response = new HashMap<>();
- 		response.put("deleted", Boolean.TRUE);
+ 	public @ResponseBody DTOanswer deleteUserById(@PathVariable Integer id){
+ 		DTOanswer response = new DTOanswer();
  		try{
  		userRepository.deleteById(id);
  		}
  		catch( Exception ResourceNotFoundException){
- 		response.put("deleted", Boolean.FALSE);
+ 			response.setSucess(false);
+ 			return response;
  		}
+ 		response.setSucess(true);
  		return response;
  	}
  	
