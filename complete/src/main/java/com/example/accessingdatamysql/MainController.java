@@ -56,8 +56,9 @@ public class MainController {
   }
   
   	@GetMapping("/users/name/{name}")
-  	public   @ResponseBody Iterable<User> getOneUser(@PathVariable String name) {
-    		return userRepository.findByNameIgnoreCase(name);
+  	public   @ResponseBody List<DTOuser> getOneUser(@PathVariable String name) {
+  		return User.returnAllusers(userRepository.findByNameIgnoreCase(name));
+ 
   }
   	
  	/*@GetMapping("/users/delete/{id}")
