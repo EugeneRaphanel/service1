@@ -29,4 +29,12 @@ public class DTOuser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public User dtoToDao() {
+		User u = new User();
+    		u.setId(this.id);
+    		u.setName(this.name);
+    		u.setEmail(this.email);
+    		return u;
+	}
 }

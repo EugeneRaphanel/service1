@@ -87,20 +87,36 @@ public class MainController {
  	
  	
  	@PostMapping(path = "/users")
-	public @ResponseBody User addNewUser(@RequestParam String name
+	public @ResponseBody DTOanswer addNewUser(@RequestParam String name
 			, @RequestParam String email){
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
-
-		User n = new User();
+		DTOuser n = new DTOuser();
 		n.setName(name);
 		n.setEmail(email);
-		return userRepository.save(n);
-	
+		DTOanswer response = new DTOanswer();
+		try {
+			userRepository.save(n.dtoToDao());
+		}
+		catch (Exception IllegalArgumentException){
+			response.setSucess(false);
+ 			return response;
+		}
+		response.setSucess(true);
+ 		return response;
 	}
 	@PostMapping("/users/object")
-	public @ResponseBody User createUser(@RequestBody User u) {
- 	return userRepository.save(u);
+	public @ResponseBody DTOanswer createUser(@RequestBody DTOuser u) {
+ 		DTOanswer response = new DTOanswer();
+		try {
+			userRepository.save(u.dtoToDao());
+		}
+		catch (Exception IllegalArgumentException){
+			response.setSucess(false);
+ 			return response;
+		}
+		response.setSucess(true);
+ 		return response;
 }
 	
 	@PutMapping(path = "/users/id/{id}")
