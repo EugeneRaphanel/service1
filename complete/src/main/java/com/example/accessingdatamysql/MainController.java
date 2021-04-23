@@ -19,8 +19,8 @@ import java.util.Optional;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
+//import java.util.ArrayList;
+//import java.util.Iterator;
 
 @Controller	// This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
@@ -38,18 +38,18 @@ public class MainController {
 	
 	  @GetMapping("/users/id/{id}")
   	public   @ResponseBody DTOuser getOneUser(@PathVariable Integer id) {
-    		Optional<User> u =  userRepository.findById(id);
+    		Optional<User> u =  userservice.findById(id);
     		return u.get().daoToDto(); // Exception not handle
     
   }
-  
+  	
   	@GetMapping("/users/name/{name}")
   	public   @ResponseBody List<DTOuser> getOneUser(@PathVariable String name) {
-  		return User.returnAllusers(userRepository.findByNameIgnoreCase(name));
+  		return userservice.returnAllusers(userservice.findByNameIgnoreCase(name));
  
   }
   	
- 	
+ 	/*
  	@DeleteMapping("/users/id/{id}")
  	public @ResponseBody DTOanswer deleteUserById(@PathVariable Integer id){
  		DTOanswer response = new DTOanswer();
